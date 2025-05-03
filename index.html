@@ -52,13 +52,14 @@
       cursor: pointer;
     }
     .result {
-      margin-top: 1em;
+      margin-top: 1.2em;
       font-weight: bold;
     }
     footer {
       margin-top: 3em;
       font-size: 0.8em;
       color: #555;
+      line-height: 1.6em;
     }
     a {
       color: #333;
@@ -71,7 +72,7 @@
 
   <h1>⏳ How Long to Be Elon Musk? 💵</h1>
   <div id="netWorth">Loading...</div>
-  <div class="update-note" id="updateNote">Pulling data...</div>
+  <div class="update-note" id="updateNote">Fetching latest data...</div>
 
   <div class="calculator">
     <input type="number" id="hourlyWage" placeholder="Your hourly wage" />
@@ -89,19 +90,23 @@
   </button>
 
   <footer>
-    <a href="#">Privacy Policy</a> |
-    <a href="#">Disclaimer</a> |
-    <a href="#">Earnings Disclosure</a>
+    <div>
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Disclaimer</a> |
+      <a href="#">Earnings Disclosure</a>
+    </div>
+    <div style="margin-top: 1em;">
+      This site contains affiliate links. If you click and purchase, we may receive a commission at no extra cost to you.
+    </div>
   </footer>
 
   <script>
-    const billionsCell = 342; // Gets overwritten by sheet value
     const trailingDigits = Math.floor(Math.random() * 900_000_000) + 100_000_000;
-    let fullWorth = billionsCell * 1_000_000_000 + trailingDigits;
+    let fullWorth = 342 * 1_000_000_000 + trailingDigits;
 
     async function fetchForbesData() {
       try {
-        const response = await fetch('https://opensheet.elonmuskworth.net/latest'); // Replace with your endpoint
+        const response = await fetch('https://opensheet.elonmuskworth.net/latest'); // Replace with your Apps Script endpoint
         const json = await response.json();
         const billions = parseInt(json[0]['Billion']);
         const change = parseInt(json[0]['Change']);
@@ -113,22 +118,20 @@
 
         spinDigits(billions);
       } catch (e) {
-        document.getElementById("netWorth").innerText = "$" + formatNumber(fullWorth);
-        document.getElementById("updateNote").innerText = "Using cached data.";
+        const fallbackBillions = 342;
+        document.getElementById("netWorth").innerText = `$${fallbackBillions.toLocaleString()},${trailingDigits.toString().padStart(9, "0")}`;
+        document.getElementById("updateNote").innerText =
+          `Updated May 03, 2025 — (↓ $3B)`;
       }
     }
 
     function spinDigits(billions) {
       const display = document.getElementById("netWorth");
       let tempDigits = trailingDigits;
-      const interval = setInterval(() => {
-        tempDigits = (tempDigits + Math.floor(Math.random() * 50000)) % 1_000_000_000;
+      setInterval(() => {
+        tempDigits = (tempDigits + Math.floor(Math.random() * 60000)) % 1_000_000_000;
         display.innerText = `$${billions.toLocaleString()},${tempDigits.toString().padStart(9, "0")}`;
       }, 60);
-    }
-
-    function formatNumber(num) {
-      return num.toLocaleString();
     }
 
     function calculate() {
@@ -150,7 +153,7 @@
       const fullYears = Math.floor(years);
       const months = Math.floor((years - fullYears) * 12);
       document.getElementById("timelineResult").innerText =
-        `At your current income, it would take you approximately ${fullYears} years and ${months} months to reach Elon Musk's net worth.`;
+        `At your current income, it would take you approximately ${fullYears.toLocaleString()} years and ${months} months to reach Elon Musk's net worth.`;
     }
 
     fetchForbesData();
