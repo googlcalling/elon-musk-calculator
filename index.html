@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How Long to Be Elon Musk?</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
       text-align: center;
-      background: #f9f9f9;
-      padding: 40px 10px;
+      background: #fafafa;
+      padding: 2rem;
+      color: #333;
     }
     h1 {
       font-size: 2rem;
@@ -18,104 +19,98 @@
     }
     .networth {
       font-size: 2.5rem;
+      font-weight: 800;
       color: #c0392b;
-      font-weight: bold;
     }
     .update {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
       color: #555;
-      margin-bottom: 30px;
+    }
+    .input-group {
+      margin: 1.5rem auto;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
     input {
-      padding: 12px;
-      margin: 10px 5px;
-      font-size: 16px;
-      width: 160px;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
     }
     button {
-      padding: 12px 24px;
-      font-size: 16px;
       background-color: #2ecc71;
       color: white;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #444;
     }
     .affiliate-button {
-      margin-top: 30px;
-      padding: 14px 28px;
-      font-size: 16px;
-      background-color: orange;
+      background: orange;
       color: white;
+      margin-top: 2rem;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
-      font-weight: bold;
     }
-    .footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #777;
+    footer {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: #999;
     }
-    .footer a {
-      color: #777;
+    a {
+      color: #999;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 8px;
     }
   </style>
 </head>
 <body>
-  <h1>⏳ How Long to Be Elon Musk? 💶</h1>
-  <div class="networth" id="networthDisplay">Loading...</div>
-  <div class="update" id="updateText">Updated ...</div>
+  <h1>⏳ How Long to Be Elon Musk? 💵
+  </h1>
+  <div class="networth" id="networthDisplay">
+    $342,626,976,806
+  </div>
+  <div class="update">Updated May 03, 2025 – (<span style="color: red;">&darr; $3B</span>)</div>
 
-  <div>
+  <div class="input-group">
     <input type="number" id="hourly" placeholder="Your hourly wage" />
     <input type="number" id="hours" placeholder="Hours/week" />
   </div>
-  <div>— or —</div>
-  <div>
+  <div> &mdash; or &mdash; </div>
+  <div class="input-group">
     <input type="number" id="salary" placeholder="Your yearly salary" />
-    <button onclick="calculate()">Reveal Your Timeline ⚡</button>
+    <button onclick="calculateTimeline()">Reveal Your Timeline ⚡️</button>
   </div>
+
+  <div class="result" id="result"></div>
 
   <button class="affiliate-button" onclick="window.location.href='go.html'">🚀 Learn how to make money like Elon!</button>
 
-  <div class="footer">
+  <footer>
     <a href="#">Privacy Policy</a> |
     <a href="#">Disclaimer</a> |
     <a href="#">Earnings Disclosure</a>
-  </div>
+  </footer>
 
   <script>
-    const billions = Number(localStorage.getItem("billionWorth")) || 342;
-    const trailingDigits = Math.floor(Math.random() * 1_000_000_000);
-    const displayEl = document.getElementById("networthDisplay");
-    const updateText = document.getElementById("updateText");
-
-    function formatNumber(n) {
-      return n.toLocaleString("en-US");
-    }
-
-    function updateNetWorthDisplay() {
-      const full = billions * 1_000_000_000 + trailingDigits;
-      displayEl.innerHTML = `$${formatNumber(full)}`;
-      updateText.innerHTML = `Updated May 03, 2025 – (<span style="color:red">↓ $3B</span>)`;
-    }
-
-    function animateTrailing() {
-      let digits = trailingDigits;
-      setInterval(() => {
-        digits += Math.floor(Math.random() * 100000);
-        if (digits > 999_999_999) digits = 0;
-        const full = billions * 1_000_000_000 + digits;
-        displayEl.innerHTML = `$${formatNumber(full)}`;
-      }, 150);
-    }
-
-    function calculate() {
-      const hourly = parseFloat(document.getElementById("hourly").value);
-      const hours = parseFloat(document.getElementById("hours").value);
-      const salary = parseFloat(document.getElementById("salary").value);
+    function calculateTimeline() {
+      const hourly = parseFloat(document.getElementById('hourly').value);
+      const hours = parseFloat(document.getElementById('hours').value);
+      const salary = parseFloat(document.getElementById('salary').value);
       let yearlyIncome;
 
       if (!isNaN(salary)) {
@@ -123,20 +118,20 @@
       } else if (!isNaN(hourly) && !isNaN(hours)) {
         yearlyIncome = hourly * hours * 52;
       } else {
-        alert("Please enter either a salary or hourly wage and hours.");
+        document.getElementById('result').innerText = "Please enter either a salary or hourly wage and hours.";
         return;
       }
 
+      const billions = 342;
+      const trailingDigits = 626961303;
       const elonNetWorth = billions * 1_000_000_000 + trailingDigits;
+
       const years = elonNetWorth / yearlyIncome;
       const yearsDisplay = Math.floor(years);
       const months = Math.floor((years - yearsDisplay) * 12);
 
-      alert(`At your current income, it would take you approximately ${yearsDisplay} years and ${months} months to reach Elon Musk’s net worth.`);
+      document.getElementById('result').innerText = `At your current income, it would take you approximately ${yearsDisplay} years and ${months} months to reach Elon Musk’s net worth.`;
     }
-
-    updateNetWorthDisplay();
-    animateTrailing();
   </script>
 </body>
 </html>
