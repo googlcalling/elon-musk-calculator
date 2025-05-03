@@ -4,258 +4,95 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Elon Musk Net Worth Tracker</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f8f9fa;
-      color: #333;
-      padding: 0 20px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 40px 20px;
-      background: #fff;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-      border-radius: 12px;
+      background: #f9f9f9;
+      color: #333;
     }
 
     h1 {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .subhead {
-      text-align: center;
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 30px;
-    }
-
-    .counter {
-      font-size: 36px;
-      text-align: center;
-      color: #d63031;
-      font-weight: bold;
-      margin-bottom: 5px;
-      white-space: nowrap;
-    }
-
-    .updateLine {
-      font-size: 14px;
-      text-align: center;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .input-group {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    .input-row {
+      font-size: 28px;
+      font-weight: 600;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       justify-content: center;
       gap: 10px;
+      margin-bottom: 5px;
     }
 
-    input {
-      padding: 12px;
-      font-size: 16px;
-      width: 180px;
-      max-width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 14px 20px;
-      font-size: 16px;
-      background: #2ecc71;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #27ae60;
-    }
-
-    #result {
-      font-size: 20px;
-      color: #2980b9;
-      margin-top: 20px;
-    }
-
-    .affiliate-link {
-      margin-top: 40px;
-      text-align: center;
-    }
-
-    .affiliate-link a {
-      font-size: 16px;
-      background: #f39c12;
-      color: #fff;
-      padding: 12px 20px;
-      text-decoration: none;
-      border-radius: 8px;
-      display: inline-block;
-      transition: background 0.3s;
-    }
-
-    .affiliate-link a:hover {
-      background: #e67e22;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 12px;
-      color: #999;
-    }
-
-    .footer a {
-      color: #3498db;
-      text-decoration: none;
-      margin: 0 8px;
-    }
-
-    .spinning-digit {
-      display: inline-block;
-      width: 0.6em;
-      text-align: center;
+    #netWorthDisplay {
+      font-size: 42px;
+      font-weight: bold;
       color: #c0392b;
+      margin: 10px 0;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 20px;
-      }
-
-      .counter {
-        font-size: 28px;
-      }
-
-      input, button {
-        font-size: 15px;
-        width: 100%;
-      }
-
-      .input-row {
-        flex-direction: column;
-      }
+    #updateInfo {
+      font-size: 14px;
+      color: #666;
     }
+
+    .green { color: green; }
+    .red { color: red; }
+    .gray { color: gray; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>⏳ How Long to Be Elon Musk?</h1>
-    <div class="subhead">Live data pulled from Forbes</div>
 
-    <div class="counter" id="muskCounter">
-      <span id="liveNetWorth">406</span>,
-      <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
-      <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
-      <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>
-    </div>
-    <div class="updateLine" id="updateLine">Updated May 03, 2025 – <span style="color:red;">(↓ $3B)</span></div>
+  <h1>⏳ How Long to Be Elon Musk? <span>💵</span></h1>
 
-    <div class="input-group">
-      <p>Calculate how long it would take you:</p>
-      <div class="input-row">
-        <input type="number" id="hourlyIncome" placeholder="Your hourly wage">
-        <input type="number" id="hoursPerWeek" placeholder="Hours/week">
-      </div>
-      <p style="margin: 10px 0;">— or —</p>
-      <input type="number" id="yearlyIncome" placeholder="Your yearly salary">
-      <button onclick="calculate()">Reveal Your Timeline ⚡</button>
-      <div id="result"></div>
-    </div>
+  <div id="netWorthDisplay">$<span id="billionPart">406</span>,<span id="spinPart">194,250,975</span></div>
 
-    <div class="affiliate-link">
-      <a href="go.html" target="_blank">🚀 Learn how to make money like Elon!</a>
-    </div>
-
-    <div class="footer">
-      <div>
-        <a href="privacy.html">Privacy Policy</a> |
-        <a href="disclaimer.html">Disclaimer</a> |
-        <a href="earnings-disclosure.html">Earnings Disclosure</a>
-      </div>
-      <p>Not affiliated with Elon Musk or Forbes. For entertainment purposes only.</p>
-    </div>
-  </div>
+  <div id="updateInfo">Updated May 03, 2025 – <span id="changeIndicator" class="red">(↓ $3B)</span></div>
 
   <script>
-    // Animated digits
-    document.addEventListener('DOMContentLoaded', () => {
-      const digits = document.querySelectorAll('.spinning-digit');
-      const speeds = [1000, 800, 600, 400, 300, 200, 150, 100, 50];
+    // Replace these with your dynamic values from Google Sheets
+    const netWorthBillion = 342; // ← fetched from Google Sheets
+    const netWorthChange = -3;   // ← fetched from Google Sheets (negative for down)
+    const lastUpdatedDate = 'May 03, 2025';
 
-      digits.forEach((digit, index) => {
-        let max = 9;
-        if (index === 0) max = 8;
+    // Set main digits
+    document.getElementById("billionPart").innerText = netWorthBillion;
 
-        function update() {
-          digit.textContent = Math.floor(Math.random() * (max + 1));
-          setTimeout(update, speeds[index]);
-        }
-        update();
-      });
-    });
+    // Animate spinning digits
+    let current = Math.floor(Math.random() * 1_000_000_000);
+    const spinEl = document.getElementById("spinPart");
 
-    let currentNetWorth = 358000000000;
-
-    function calculate() {
-      const hourly = parseFloat(document.getElementById('hourlyIncome').value);
-      const hoursPerWeek = parseFloat(document.getElementById('hoursPerWeek').value);
-      const yearly = parseFloat(document.getElementById('yearlyIncome').value);
-
-      let annualIncome;
-      if (hourly && hoursPerWeek) {
-        annualIncome = hourly * hoursPerWeek * 52;
-      } else if (yearly) {
-        annualIncome = yearly;
-      } else {
-        alert("❗ Please fill either hourly + hours OR yearly income!");
-        return;
-      }
-
-      const totalYears = currentNetWorth / annualIncome;
-      const years = Math.floor(totalYears);
-      const months = Math.floor((totalYears % 1) * 12);
-      const days = Math.floor((((totalYears % 1) * 12) % 1) * 30);
-
-      let resultText = `<strong>${years.toLocaleString()} years</strong>, ${months} months, ${days} days`;
-
-      if (years > 1000000) {
-        resultText += `<br><span style="color:#e67e22">(That's ${Math.floor(years/1000).toLocaleString()} millennia! 😱)</span>`;
-      } else if (years < 100) {
-        resultText += `<br><span style="color:#2ecc71">(Future billionaire alert! 🚀)</span>`;
-      }
-
-      document.getElementById('result').innerHTML = resultText;
+    function formatDigits(num) {
+      return num.toLocaleString("en-US").padStart(9, '0');
     }
 
-    async function fetchNetWorth() {
-      try {
-        const res = await fetch("https://opensheet.vercel.app/2PACX-1vQyeCAYPGMPK9inlcg9Du-4nXdy-098WR-4NSTC59IQ9Gnr_Qa-AZt-To5vlLjBofM-NmmbEbmzE27P/Sheet1");
-        const data = await res.json();
-        document.getElementById("liveNetWorth").textContent = data[0].baseNetWorth;
-        document.getElementById("updateLine").innerHTML = data[0].updateLine;
-      } catch (e) {
-        console.error("Could not fetch net worth:", e);
-      }
+    function spinDigits() {
+      current += Math.floor(Math.random() * 100000); // Adjust for spin speed
+      if (current >= 999_999_999) current = 0;
+      spinEl.textContent = formatDigits(current);
     }
 
-    fetchNetWorth();
+    setInterval(spinDigits, 120); // Speed of animation
+
+    // Format change indicator
+    const changeEl = document.getElementById("changeIndicator");
+    if (netWorthChange > 0) {
+      changeEl.className = 'green';
+      changeEl.innerHTML = `(↑ $${Math.abs(netWorthChange)}B)`;
+    } else if (netWorthChange < 0) {
+      changeEl.className = 'red';
+      changeEl.innerHTML = `(↓ $${Math.abs(netWorthChange)}B)`;
+    } else {
+      changeEl.className = 'gray';
+      changeEl.textContent = `(No Change)`;
+    }
+
+    // Set update timestamp
+    document.getElementById("updateInfo").innerHTML =
+      `Updated ${lastUpdatedDate} – <span class="${changeEl.className}">${changeEl.innerHTML}</span>`;
   </script>
+
 </body>
 </html>
