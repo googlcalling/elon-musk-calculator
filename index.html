@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>How Long to Be Elon Musk? 💸</title>
+  <meta charset="utf-8" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -152,29 +152,32 @@
     <p class="net-worth-label">Elon's net worth:</p>
     <div class="counter-wrapper">
       <div class="counter" id="muskCounter">
-        <span id="liveNetWorth">406</span>,
+        <span id="liveNetWorth">000</span>,
         <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
         <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
         <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>
       </div>
     </div>
+
     <div class="input-group">
       <p>Calculate how long it would take you below:</p>
       <div>
         <div class="input-row">
-          <input id="hourlyIncome" placeholder="Your hourly wage (e.g., 20)" type="number"/>
-          <input id="hoursPerWeek" placeholder="Hours worked per week" type="number"/>
+          <input id="hourlyIncome" placeholder="Your hourly wage (e.g., 20)" type="number" />
+          <input id="hoursPerWeek" placeholder="Hours worked per week" type="number" />
         </div>
       </div>
       <p style="margin:10px">- or -</p>
-      <input id="yearlyIncome" placeholder="Your yearly salary (e.g., 50000)" type="number"/>
+      <input id="yearlyIncome" placeholder="Your yearly salary (e.g., 50000)" type="number" />
     </div>
+
     <button onclick="calculate()">Reveal Your Timeline ⚡</button>
     <div id="result"></div>
+
     <a href="go.html" id="affiliateLink" style="white-space: nowrap;" target="_blank">
       🚀 Learn how to make money like Elon!
     </a>
-    <!-- Simplified Footer -->
+
     <div class="footer">
       <div class="footer-links">
         <a href="privacy.html">Privacy Policy</a>
@@ -185,16 +188,16 @@
       <p>This calculator is for entertainment purposes only. Not affiliated with Elon Musk.</p>
     </div>
   </div>
+
   <script>
-    // Progressive spinning digits animation
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const digits = document.querySelectorAll('.spinning-digit');
       const speeds = [1000, 800, 600, 400, 300, 200, 150, 100, 50];
-      
+
       digits.forEach((digit, index) => {
         let max = 9;
         if (index === 0) max = 8;
-        
+
         function update() {
           digit.textContent = Math.floor(Math.random() * (max + 1));
           setTimeout(update, speeds[index]);
@@ -237,10 +240,11 @@
       document.getElementById('result').style.display = 'block';
     }
   </script>
+
   <script>
     async function fetchNetWorth() {
       try {
-        const res = await fetch("https://opensheet.vercel.app/2PACX-1vQyeCAYPGMPK9inlcg9Du-4nXdy-098WR-4NSTC59IQ9Gnr_Qa-AZt-To5vlLjBofM-NmmbEbmzE27P/Sheet1");
+        const res = await fetch("https://opensheet.vercel.app/1EI4Y8dcLC18fRa95hhAABy3IJIMCevCizz9MySunTow/Sheet1");
         const data = await res.json();
         const amount = data[0].baseNetWorth;
         document.getElementById("liveNetWorth").textContent = amount;
