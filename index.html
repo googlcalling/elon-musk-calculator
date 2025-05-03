@@ -231,5 +231,19 @@
             document.getElementById('result').style.display = 'block';
         }
     </script>
+        <script>
+  async function fetchNetWorth() {
+    try {
+      const res = await fetch("https://opensheet.vercel.app/2PACX-1vQyeCAYPGMPK9inlcg9Du-4nXdy-098WR-4NSTC59IQ9Gnr_Qa-AZt-To5vlLjBofM-NmmbEbmzE27P/Sheet1");
+      const data = await res.json();
+      const amount = data[0].baseNetWorth;
+      document.getElementById("liveNetWorth").textContent = amount;
+    } catch (e) {
+      console.error("Could not fetch net worth:", e);
+    }
+  }
+
+  fetchNetWorth();
+</script>
 </body>
 </html>
