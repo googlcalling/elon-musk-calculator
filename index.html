@@ -3,95 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elon Musk Net Worth Tracker</title>
+  <title>Elon Musk Net Worth Live Tracker</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
+      font-family: Arial, sans-serif;
       background: #f9f9f9;
       color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 0;
     }
-
     h1 {
-      font-size: 28px;
-      font-weight: 600;
+      font-size: 2rem;
+      margin-top: 40px;
+    }
+    .net-worth {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #b02a2a;
+      margin: 20px 0 10px;
+    }
+    .update-date {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .change {
+      font-size: 0.95rem;
+    }
+    .down {
+      color: red;
+    }
+    .up {
+      color: green;
+    }
+    .inputs {
+      margin-top: 30px;
       display: flex;
-      align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 5px;
+      flex-wrap: wrap;
     }
-
-    #netWorthDisplay {
-      font-size: 42px;
-      font-weight: bold;
-      color: #c0392b;
-      margin: 10px 0;
+    input {
+      padding: 12px;
+      font-size: 16px;
+      width: 180px;
+      max-width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
-
-    #updateInfo {
-      font-size: 14px;
+    .or-text {
+      margin: 20px 0;
+      font-size: 1rem;
       color: #666;
     }
-
-    .green { color: green; }
-    .red { color: red; }
-    .gray { color: gray; }
+    .reveal-button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #28c76f;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+    .cta-button {
+      background-color: orange;
+      color: white;
+      padding: 14px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      margin: 30px auto 10px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+    .footer a {
+      margin: 0 10px;
+      color: #555;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
 
-  <h1>⏳ How Long to Be Elon Musk? <span>💵</span></h1>
+  <h1>⏳ How Long to Be Elon Musk? 💵</h1>
 
-  <div id="netWorthDisplay">$<span id="billionPart">406</span>,<span id="spinPart">194,250,975</span></div>
+  <div class="net-worth" id="netWorth">$000,000,000,000</div>
+  <div class="update-date">
+    Updated <span id="updatedDate">[DATE]</span> – <span class="change" id="changeText"></span>
+  </div>
 
-  <div id="updateInfo">Updated May 03, 2025 – <span id="changeIndicator" class="red">(↓ $3B)</span></div>
+  <div class="inputs">
+    <input type="number" id="hourlyWage" placeholder="Your hourly wage">
+    <input type="number" id="hoursPerWeek" placeholder="Hours/week">
+  </div>
+
+  <div class="or-text">— or —</div>
+
+  <div class="inputs">
+    <input type="number" id="yearlySalary" placeholder="Your yearly salary">
+    <button class="reveal-button">Reveal Your Timeline ⚡</button>
+  </div>
+
+  <button class="cta-button">🚀 Learn how to make money like Elon!</button>
+
+  <div class="footer">
+    <a href="#">Privacy Policy</a> |
+    <a href="#">Disclaimer</a> |
+    <a href="#">Earnings Disclosure</a>
+  </div>
 
   <script>
-    // Replace these with your dynamic values from Google Sheets
-    const netWorthBillion = 342; // ← fetched from Google Sheets
-    const netWorthChange = -3;   // ← fetched from Google Sheets (negative for down)
-    const lastUpdatedDate = 'May 03, 2025';
+    // Real-time ticker logic
+    const billions = 342;
+    const trailingDigitsStart = 626961303;
+    let trailingDigits = trailingDigitsStart;
 
-    // Set main digits
-    document.getElementById("billionPart").innerText = netWorthBillion;
+    const netWorthEl = document.getElementById("netWorth");
 
-    // Animate spinning digits
-    let current = Math.floor(Math.random() * 1_000_000_000);
-    const spinEl = document.getElementById("spinPart");
-
-    function formatDigits(num) {
-      return num.toLocaleString("en-US").padStart(9, '0');
+    function formatNetWorth(billionsPart, trailing) {
+      const trailingStr = trailing.toString().padStart(9, "0");
+      return `$${billionsPart},${trailingStr.slice(0, 3)},${trailingStr.slice(3, 6)},${trailingStr.slice(6, 9)}`;
     }
 
-    function spinDigits() {
-      current += Math.floor(Math.random() * 100000); // Adjust for spin speed
-      if (current >= 999_999_999) current = 0;
-      spinEl.textContent = formatDigits(current);
-    }
+    setInterval(() => {
+      trailingDigits += 37;
+      netWorthEl.textContent = formatNetWorth(billions, trailingDigits);
+    }, 100);
 
-    setInterval(spinDigits, 120); // Speed of animation
-
-    // Format change indicator
-    const changeEl = document.getElementById("changeIndicator");
-    if (netWorthChange > 0) {
-      changeEl.className = 'green';
-      changeEl.innerHTML = `(↑ $${Math.abs(netWorthChange)}B)`;
-    } else if (netWorthChange < 0) {
-      changeEl.className = 'red';
-      changeEl.innerHTML = `(↓ $${Math.abs(netWorthChange)}B)`;
-    } else {
-      changeEl.className = 'gray';
-      changeEl.textContent = `(No Change)`;
-    }
-
-    // Set update timestamp
-    document.getElementById("updateInfo").innerHTML =
-      `Updated ${lastUpdatedDate} – <span class="${changeEl.className}">${changeEl.innerHTML}</span>`;
+    // Update date and change
+    document.getElementById("updatedDate").textContent = "May 03, 2025";
+    document.getElementById("changeText").innerHTML = '(<span class="down">↓ $3B</span>)';
   </script>
 
 </body>
