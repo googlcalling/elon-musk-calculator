@@ -1,83 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>How Long to Be Elon Musk? 💸</title>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elon Musk Net Worth Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #333;
+      padding: 0 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+      border-radius: 12px;
+    }
+
+    h1 {
+      font-size: 24px;
       text-align: center;
-      padding: 20px;
-      margin: 0 auto;
-      background: #f0f0f0;
+      margin-bottom: 10px;
     }
 
-    .calculator {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .counter-wrapper {
-      max-width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+    .subhead {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 30px;
     }
 
     .counter {
-      font-size: 40px;
-      color: #e74c3c;
-      margin: 10px;
+      font-size: 36px;
+      text-align: center;
+      color: #d63031;
+      font-weight: bold;
+      margin-bottom: 5px;
       white-space: nowrap;
     }
 
+    .updateLine {
+      font-size: 14px;
+      text-align: center;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
     .input-group {
-      margin: 15px 0;
+      margin-top: 30px;
+      text-align: center;
     }
 
     .input-row {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
+      gap: 10px;
     }
 
-    .input-row input {
-      flex: 1;
-      min-width: 150px;
+    input {
+      padding: 12px;
+      font-size: 16px;
+      width: 180px;
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
 
-    input, button {
-      padding: 10px;
-      margin: 5px;
-      width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
+    button {
+      margin-top: 20px;
+      padding: 14px 20px;
+      font-size: 16px;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #27ae60;
     }
 
     #result {
-      font-size: 24px;
-      color: #e74c3c;
-      margin: 20px;
-      display: none;
+      font-size: 20px;
+      color: #2980b9;
+      margin-top: 20px;
     }
 
-    #affiliateLink {
-      display: block;
-      margin-top: 30px;
-      font-size: 18px;
-      color: #1a237e;
-      text-decoration: none;
+    .affiliate-link {
+      margin-top: 40px;
+      text-align: center;
     }
 
-    .net-worth-label {
+    .affiliate-link a {
       font-size: 16px;
-      color: #e74c3c;
-      margin: 10px 0 5px;
+      background: #f39c12;
+      color: #fff;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .affiliate-link a:hover {
+      background: #e67e22;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .footer a {
+      color: #3498db;
+      text-decoration: none;
+      margin: 0 8px;
     }
 
     .spinning-digit {
@@ -87,110 +134,68 @@
       color: #c0392b;
     }
 
-    .footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #ddd;
-      font-size: 12px;
-      color: #666;
-      line-height: 1.6;
-    }
-
-    .footer-links {
-      margin: 10px 0;
-    }
-
-    .footer a {
-      color: #3498db;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      .calculator {
-        max-width: 100%;
-        width: 100%;
-        box-sizing: border-box;
-        padding: 16px;
-      }
-
-      .input-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      input, button {
-        font-size: 16px;
-        padding: 14px;
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
       }
 
       .counter {
         font-size: 28px;
       }
 
-      h1 {
-        font-size: 22px;
+      input, button {
+        font-size: 15px;
+        width: 100%;
       }
 
-      p, label {
-        font-size: 16px;
+      .input-row {
+        flex-direction: column;
       }
     }
   </style>
 </head>
 <body>
-  <div class="calculator">
-    <h1>⏳ How Long to Be Elon Musk? 💸</h1>
-    <p class="net-worth-label">Elon's net worth:</p>
-    <div class="counter-wrapper">
-      <div class="counter" id="muskCounter">
-        <span id="liveNetWorth">000</span>,
-        <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
-        <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
-        <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>
-      </div>
+  <div class="container">
+    <h1>⏳ How Long to Be Elon Musk?</h1>
+    <div class="subhead">Live data pulled from Forbes</div>
+
+    <div class="counter" id="muskCounter">
+      <span id="liveNetWorth">406</span>,
+      <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
+      <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
+      <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>
     </div>
+    <div class="updateLine" id="updateLine">Updated May 03, 2025 – <span style="color:red;">(↓ $3B)</span></div>
 
     <div class="input-group">
-      <p>Calculate how long it would take you below:</p>
-      <div>
-        <div class="input-row">
-          <input id="hourlyIncome" placeholder="Your hourly wage (e.g., 20)" type="number" />
-          <input id="hoursPerWeek" placeholder="Hours worked per week" type="number" />
-        </div>
+      <p>Calculate how long it would take you:</p>
+      <div class="input-row">
+        <input type="number" id="hourlyIncome" placeholder="Your hourly wage">
+        <input type="number" id="hoursPerWeek" placeholder="Hours/week">
       </div>
-      <p style="margin:10px">- or -</p>
-      <input id="yearlyIncome" placeholder="Your yearly salary (e.g., 50000)" type="number" />
+      <p style="margin: 10px 0;">— or —</p>
+      <input type="number" id="yearlyIncome" placeholder="Your yearly salary">
+      <button onclick="calculate()">Reveal Your Timeline ⚡</button>
+      <div id="result"></div>
     </div>
 
-    <button onclick="calculate()">Reveal Your Timeline ⚡</button>
-    <div id="result"></div>
-
-    <a href="go.html" id="affiliateLink" style="white-space: nowrap;" target="_blank">
-      🚀 Learn how to make money like Elon!
-    </a>
+    <div class="affiliate-link">
+      <a href="go.html" target="_blank">🚀 Learn how to make money like Elon!</a>
+    </div>
 
     <div class="footer">
-      <div class="footer-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="disclaimer.html">Full Disclaimer</a>
+      <div>
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="disclaimer.html">Disclaimer</a> |
         <a href="earnings-disclosure.html">Earnings Disclosure</a>
       </div>
-      <p>Any links on this page should be deemed affiliate links and we may earn a commission if you use them.</p>
-      <p>This calculator is for entertainment purposes only. Not affiliated with Elon Musk.</p>
+      <p>Not affiliated with Elon Musk or Forbes. For entertainment purposes only.</p>
     </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    // Animated digits
+    document.addEventListener('DOMContentLoaded', () => {
       const digits = document.querySelectorAll('.spinning-digit');
       const speeds = [1000, 800, 600, 400, 300, 200, 150, 100, 50];
 
@@ -237,17 +242,14 @@
       }
 
       document.getElementById('result').innerHTML = resultText;
-      document.getElementById('result').style.display = 'block';
     }
-  </script>
 
-  <script>
     async function fetchNetWorth() {
       try {
-        const res = await fetch("https://opensheet.vercel.app/1EI4Y8dcLC18fRa95hhAABy3IJIMCevCizz9MySunTow/Sheet1");
+        const res = await fetch("https://opensheet.vercel.app/2PACX-1vQyeCAYPGMPK9inlcg9Du-4nXdy-098WR-4NSTC59IQ9Gnr_Qa-AZt-To5vlLjBofM-NmmbEbmzE27P/Sheet1");
         const data = await res.json();
-        const amount = data[0].baseNetWorth;
-        document.getElementById("liveNetWorth").textContent = amount;
+        document.getElementById("liveNetWorth").textContent = data[0].baseNetWorth;
+        document.getElementById("updateLine").innerHTML = data[0].updateLine;
       } catch (e) {
         console.error("Could not fetch net worth:", e);
       }
