@@ -1,53 +1,136 @@
-<script>
-  // Net worth ticker logic
-  const billions = 342;
-  const trailingDigitsStart = 626961303;
-  let trailingDigits = trailingDigitsStart;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Long to Be Elon Musk?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-top: 2rem;
+    }
+    .networth {
+      font-size: 2.5rem;
+      color: #c0392b;
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+    .updated {
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    input {
+      padding: 0.75rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      width: 180px;
+      text-align: center;
+    }
+    button {
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    .cta {
+      background-color: orange;
+      margin-top: 2rem;
+    }
+    footer {
+      margin-top: 3rem;
+      font-size: 0.875rem;
+    }
+    .result {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>⏳ How Long to Be Elon Musk? 💳</h1>
+  <div class="networth">
+    <span id="billions">342</span>,<span id="trailing">000,000,000</span>
+  </div>
+  <div class="updated" id="lastUpdated">Updated May 03, 2025 — (<span style="color:red;">↓ $3B</span>)</div>
 
-  const netWorthEl = document.getElementById("netWorth");
+  <div>
+    <input type="number" id="hourly" placeholder="Your hourly wage" />
+    <input type="number" id="hours" placeholder="Hours/week" />
+  </div>
+  <div>— or —</div>
+  <div>
+    <input type="number" id="salary" placeholder="Your yearly salary" />
+    <button id="calc">Reveal Your Timeline ⚡️</button>
+  </div>
 
-  function formatNetWorth(billionsPart, trailing) {
-    const trailingStr = trailing.toString().padStart(9, "0");
-    return `$${billionsPart},${trailingStr.slice(0, 3)},${trailingStr.slice(3, 6)},${trailingStr.slice(6, 9)}`;
-  }
+  <div class="result" id="timeline"></div>
 
-  setInterval(() => {
-    trailingDigits += 37;
-    netWorthEl.textContent = formatNetWorth(billions, trailingDigits);
-  }, 100);
+  <button class="cta" id="cta-button">🚀 Learn how to make money like Elon!</button>
 
-  // Display update date and change
-  document.getElementById("updatedDate").textContent = "May 03, 2025";
-  document.getElementById("changeText").innerHTML = '(<span class="down">↓ $3B</span>)';
+  <footer>
+    <a href="#">Privacy Policy</a> | <a href="#">Disclaimer</a> | <a href="#">Earnings Disclosure</a>
+  </footer>
 
-  // Reveal Timeline Logic
-  document.querySelector(".reveal-button").addEventListener("click", () => {
-    const hourly = parseFloat(document.getElementById("hourlyWage").value);
-    const hours = parseFloat(document.getElementById("hoursPerWeek").value);
-    const salary = parseFloat(document.getElementById("yearlySalary").value);
-
-    let yearlyIncome;
-
-    if (!isNaN(salary)) {
-      yearlyIncome = salary;
-    } else if (!isNaN(hourly) && !isNaN(hours)) {
-      yearlyIncome = hourly * hours * 52;
-    } else {
-      alert("Please enter either a salary or hourly wage and hours.");
-      return;
+  <script>
+    // Animate trailing digits
+    function animateTrailingDigits() {
+      setInterval(() => {
+        const digits = Array.from({ length: 9 }, () => Math.floor(Math.random() * 10)).join("");
+        const formatted = digits.replace(/(\d{3})(?=\d)/g, "$1,");
+        document.getElementById("trailing").textContent = formatted;
+      }, 100);
     }
 
-    const elonNetWorth = billions * 1_000_000_000 + trailingDigits;
-    const years = elonNetWorth / yearlyIncome;
+    // Load billions from Google Sheet (you've synced this)
+    const billions = 342; // This will be dynamically updated via Apps Script if hooked up properly
+    document.getElementById("billions").textContent = billions;
 
-    const yearsDisplay = Math.floor(years);
-    const months = Math.floor((years - yearsDisplay) * 12);
+    // Launch digit spinner
+    animateTrailingDigits();
 
-    alert(`At your current income, it would take you approximately ${yearsDisplay} years and ${months} months to reach Elon Musk’s net worth.`);
-  });
+    // Handle timeline calc
+    document.getElementById("calc").addEventListener("click", () => {
+      const salary = parseFloat(document.getElementById("salary").value);
+      const hourly = parseFloat(document.getElementById("hourly").value);
+      const hours = parseFloat(document.getElementById("hours").value);
+      let yearlyIncome;
 
-  // Affiliate link
-  document.querySelector(".cta-button").addEventListener("click", () => {
-    window.open("https://your-affiliate-link.com", "_blank");
-  });
-</script>
+      if (!isNaN(salary)) {
+        yearlyIncome = salary;
+      } else if (!isNaN(hourly) && !isNaN(hours)) {
+        yearlyIncome = hourly * hours * 52;
+      } else {
+        alert("Please enter either a salary or hourly wage and hours.");
+        return;
+      }
+
+      const trailingDigits = parseInt(document.getElementById("trailing").textContent.replace(/,/g, ""));
+      const elonNetWorth = billions * 1_000_000_000 + trailingDigits;
+      const years = elonNetWorth / yearlyIncome;
+      const yearsDisplay = Math.floor(years);
+      const months = Math.floor((years - yearsDisplay) * 12);
+
+      document.getElementById("timeline").textContent =
+        `At your current income, it would take you approximately ${yearsDisplay} years and ${months} months to reach Elon Musk's net worth.`;
+    });
+
+    // CTA button click
+    document.getElementById("cta-button").addEventListener("click", () => {
+      window.open("https://your-affiliate-link.com", "_blank");
+    });
+  </script>
+</body>
+</html>
