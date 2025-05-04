@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>How Long to Be Elon Musk?</title>
   <style>
     body {
@@ -74,12 +74,12 @@
   <div id="lastUpdated" class="update-info">Updated May 03, 2025 — (<span style="color:red;">↓ $3B</span>)</div>
 
   <div>
-    <input type="number" id="hourlyWage" placeholder="Your hourly wage">
-    <input type="number" id="hoursPerWeek" placeholder="Hours/week">
+    <input type="number" id="hourlyWage" placeholder="Your hourly wage" />
+    <input type="number" id="hoursPerWeek" placeholder="Hours/week" />
   </div>
   <div style="margin: 10px 0;">— or —</div>
   <div>
-    <input type="number" id="yearlySalary" placeholder="Your yearly salary">
+    <input type="number" id="yearlySalary" placeholder="Your yearly salary" />
   </div>
   <div>
     <button onclick="calculate()" class="calculate-btn">Reveal Your Timeline ⚡</button>
@@ -96,25 +96,25 @@
   <div class="footer">
     <a href="#">Privacy Policy</a> |
     <a href="#">Disclaimer</a> |
-    <a href="#">Earnings Disclosure</a><br>
+    <a href="#">Earnings Disclosure</a><br />
     *Some links on this site may be affiliate links.
   </div>
 
   <script>
     const billions = 342;
-    const trailingDigits = Math.floor(Math.random() * 900_000_000) + 100_000_000;
+    const trailingDigits = Math.floor(Math.random() * 900000000) + 100000000;
     let tempDigits = trailingDigits;
 
     function formatWithCommas(num) {
-      return num.toLocaleString('en-US');
+      return num.toLocaleString("en-US");
     }
 
     function spinDigits() {
       const display = document.getElementById("netWorth");
       setInterval(() => {
-        tempDigits = (tempDigits + Math.floor(Math.random() * 1000000)) % 1_000_000_000;
-        const formatted = `${formatWithCommas(billions)},${tempDigits.toString().padStart(9, "0")}`;
-        display.textContent = `$${formatted}`;
+        tempDigits = (tempDigits + Math.floor(Math.random() * 1000000)) % 1000000000;
+        const fullAmount = billions * 1000000000 + tempDigits;
+        display.textContent = "$" + formatWithCommas(fullAmount);
       }, 60);
     }
 
@@ -134,7 +134,7 @@
         return;
       }
 
-      const elonNetWorth = billions * 1_000_000_000 + trailingDigits;
+      const elonNetWorth = billions * 1000000000 + trailingDigits;
       const years = elonNetWorth / yearlyIncome;
       const fullYears = Math.floor(years);
       const months = Math.floor((years - fullYears) * 12);
