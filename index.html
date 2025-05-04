@@ -1,141 +1,93 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How Long to Be Elon Musk?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elon Musk Net Worth Tracker</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 2em;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: #f9f9f9;
+      color: #333;
     }
+
     h1 {
-      font-size: 2em;
+      font-size: 28px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 5px;
     }
-    #net-worth {
-      font-size: 2.5em;
+
+    #netWorthDisplay {
+      font-size: 42px;
       font-weight: bold;
-      color: #b12704;
-      margin-top: 0.5em;
+      color: #c0392b;
+      margin: 10px 0;
     }
-    #updated-date {
-      margin-top: 0.2em;
-      color: #555;
+
+    #updateInfo {
+      font-size: 14px;
+      color: #666;
     }
-    .input-container {
-      margin: 1em 0;
-    }
-    input {
-      padding: 0.6em;
-      margin: 0.5em;
-      width: 200px;
-      font-size: 1em;
-    }
-    button {
-      padding: 0.6em 1.2em;
-      font-size: 1em;
-      background-color: #28c76f;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    #result {
-      margin-top: 1.5em;
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-    .affiliate-btn {
-      display: inline-block;
-      background-color: orange;
-      color: white;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 1em 2em;
-      margin-top: 2em;
-      border-radius: 5px;
-    }
+
+    .green { color: green; }
+    .red { color: red; }
+    .gray { color: gray; }
   </style>
 </head>
 <body>
-  <h1>⏳ How Long to Be Elon Musk? 💵</h1>
-  <div id="net-worth">Loading...</div>
-  <div id="updated-date"></div>
 
-  <div class="input-container">
-    <input type="number" id="hourlyWage" placeholder="Your hourly wage" />
-    <input type="number" id="hoursPerWeek" placeholder="Hours/week" />
-  </div>
-  <div>— or —</div>
-  <div class="input-container">
-    <input type="number" id="yearlySalary" placeholder="Your yearly salary" />
-  </div>
+  <h1>⏳ How Long to Be Elon Musk? <span>💵</span></h1>
 
-  <button onclick="calculateTimeline()">Reveal Your Timeline ⚡</button>
-  <div id="result"></div>
-
-  <a href="go.html" class="affiliate-btn">🚀 Learn how to make money like Elon!</a>
+  <div id="netWorthDisplay">$<span id="mainDigits">...</span><span id="randomDigits">,000,000,000</span></div>
+  <div id="updateInfo">Updated May 03, 2025 – <span id="delta" class="gray">loading...</span></div>
 
   <script>
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/1DpzYcFeK_gwEBKduA2Fw5ZrDIFw5tPoYGfd9tdoYk_g/gviz/tq?tqx=out:json';
-    let billions = 0;
-    let trailingDigits = 0;
+    const sheetURL = "https://opensheet.vercel.app/2PACX-1vQyeCAYPGMPK9inlcg9Du-4nXdy-098WR-4NSTC59IQ9Gnr_Qa-AZt-To5vlLjBofM-NmmbEbmzE27P/Sheet1";
 
-    function fetchNetWorth() {
-      fetch(sheetURL)
-        .then(res => res.text())
-        .then(text => {
-          const json = JSON.parse(text.substr(47).slice(0, -2));
-          billions = parseInt(json.table.rows[0].c[0].v);
-          updateNetWorth();
-        });
+    async function fetchNetWorth() {
+      try {
+        const res = await fetch(sheetURL);
+        const data = await res.json();
+        const base = data[0].baseNetWorth;
+        const change = data[0].change;
+
+        document.getElementById("mainDigits").textContent = base.toLocaleString();
+
+        const delta = document.getElementById("delta");
+        const sign = change >= 0 ? "↑" : "↓";
+        delta.textContent = `${sign} $${Math.abs(change)}B`;
+        delta.className = change >= 0 ? "green" : "red";
+      } catch (err) {
+        console.error("Sheet fetch error", err);
+        document.getElementById("mainDigits").textContent = "???";
+        document.getElementById("delta").textContent = "error loading";
+        document.getElementById("delta").className = "gray";
+      }
     }
 
-    function updateNetWorth() {
-      const digitsDiv = document.getElementById('net-worth');
-      const updateDate = new Date();
-      const formattedDate = updateDate.toLocaleDateString('en-US', {
-        month: 'short',
-        day: '2-digit',
-        year: 'numeric'
-      });
-      document.getElementById('updated-date').innerText = `Updated ${formattedDate}`;
-
-      function animate() {
-        trailingDigits = Math.floor(Math.random() * 1000000000);
-        digitsDiv.innerText = `$${billions.toLocaleString()},${trailingDigits.toString().padStart(9, '0')}`;
+    function animateDigits() {
+      const span = document.getElementById("randomDigits");
+      function update() {
+        const val = Array.from({ length: 9 }, () => Math.floor(Math.random() * 10)).join('');
+        span.textContent = "," + val.slice(0, 3) + "," + val.slice(3, 6) + "," + val.slice(6, 9);
+        setTimeout(update, 100);
       }
-      animate();
-      setInterval(animate, 120);
-    }
-
-    function calculateTimeline() {
-      const hourly = parseFloat(document.getElementById('hourlyWage').value);
-      const hours = parseFloat(document.getElementById('hoursPerWeek').value);
-      const salary = parseFloat(document.getElementById('yearlySalary').value);
-      let yearlyIncome;
-
-      if (!isNaN(salary)) {
-        yearlyIncome = salary;
-      } else if (!isNaN(hourly) && !isNaN(hours)) {
-        yearlyIncome = hourly * hours * 52;
-      } else {
-        document.getElementById('result').innerText = 'Please enter a salary or hourly wage and hours.';
-        return;
-      }
-
-      const elonNetWorth = billions * 1000000000 + trailingDigits;
-      const years = elonNetWorth / yearlyIncome;
-      const wholeYears = Math.floor(years);
-      const months = Math.floor((years - wholeYears) * 12);
-
-      document.getElementById('result').innerText =
-        `At your current income, it would take you approximately ${wholeYears} years and ${months} months to reach Elon Musk's net worth.`;
+      update();
     }
 
     fetchNetWorth();
+    animateDigits();
   </script>
+
 </body>
 </html>
