@@ -1,95 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elon Musk Net Worth Tracker</title>
+  <title>Elon Musk Net Worth</title>
   <style>
     body {
+      background: #f8f8f8;
       font-family: Arial, sans-serif;
       text-align: center;
-      background: #f4f4f4;
-      padding: 50px 20px;
+      padding: 40px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 20px;
+      display: inline-block;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
     h1 {
-      font-size: 2em;
+      font-size: 36px;
+      font-weight: bold;
       margin-bottom: 10px;
     }
 
-    .net-worth-display {
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 10px;
-      display: inline-block;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    }
-
-    .emoji {
-      font-size: 1.8em;
-      margin: 10px 0;
-    }
-
-    .amount {
-      font-size: 2.2em;
+    #net-worth {
+      font-size: 48px;
       font-weight: bold;
-      color: #27ae60;
-      margin: 15px 0;
-      letter-spacing: 1px;
+      color: #c0392b;
+      letter-spacing: 4px;
     }
 
-    .update-info {
-      color: #888;
-      font-size: 0.9em;
+    #updated-date {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #555;
     }
 
-    .currency-symbol {
-      font-size: 1.3em;
-      vertical-align: top;
-      margin-right: 2px;
+    .icon {
+      font-size: 28px;
+      margin-right: 10px;
+      vertical-align: middle;
     }
 
-    #spinPart {
-      font-family: 'Courier New', monospace;
+    .emoji-inline {
+      font-size: 28px;
+      vertical-align: middle;
+      margin-left: 10px;
     }
   </style>
 </head>
 <body>
-
-  <div class="net-worth-display">
-    <h1>⏳ How Long to Be Elon Musk?</h1>
-    <div class="emoji">💵</div>
-    <div class="amount">
-      <span class="currency-symbol">$</span>
-      <span id="fixedDigits">342,</span><span id="spinPart">000,000,000</span>
-    </div>
-    <div class="update-info">Updated May 03, 2025 – (↓ $3B)</div>
+  <div class="container">
+    <h1><span class="icon">⏳</span>How Long to Be Elon Musk?<span class="emoji-inline">💵</span></h1>
+    <div id="net-worth">$342,901,833,928</div>
+    <div id="updated-date">Updated May 03, 2025 – <span style="color:#c0392b;">(↓ $3B)</span></div>
   </div>
 
   <script>
-    let current = Math.floor(Math.random() * 1_000_000_000);
-    const spinEl = document.getElementById("spinPart");
+    const netWorthDisplay = document.getElementById("net-worth");
+    let digits = [3, 4, 2, 9, 0, 1, 8, 3, 3, 9, 2, 8];
 
-    function formatDigits(num) {
-      return num.toLocaleString("en-US").padStart(9, '0');
-    }
-
-    function spinDigits() {
-      const direction = Math.random() > 0.5 ? 1 : -1; // Go up or down
-      const change = Math.floor(Math.random() * 100000); // Random fluctuation
-
-      current += direction * change;
-
-      // Reset if out of bounds
-      if (current < 0 || current > 999999999) {
-        current = Math.floor(Math.random() * 1000000);
+    function fluctuate() {
+      let newDigits = [...digits];
+      for (let i = 5; i < digits.length; i++) {
+        let delta = Math.floor(Math.random() * 3) - 1;
+        newDigits[i] += delta;
+        if (newDigits[i] > 9) newDigits[i] = 0;
+        if (newDigits[i] < 0) newDigits[i] = 9;
       }
-
-      spinEl.textContent = formatDigits(current);
+      digits = newDigits;
+      updateDisplay();
     }
 
-    setInterval(spinDigits, 120);
-  </script>
+    function updateDisplay() {
+      const formatted = `$${digits[0]}${digits[1]}${digits[2]},${digits[3]}${digits[4]}${digits[5]},${digits[6]}${digits[7]}${digits[8]},${digits[9]}${digits[10]}${digits[11]}`;
+      netWorthDisplay.textContent = formatted;
+    }
 
+    setInterval(fluctuate, 100);
+  </script>
 </body>
 </html>
