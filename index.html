@@ -1,153 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elon Musk Net Worth Calculator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-      background-color: #fefefe;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.2em;
-    }
-    #net-worth {
-      font-size: 2.5em;
-      font-weight: bold;
-      color: #c0392b;
-      margin: 10px 0;
-    }
-    #updated {
-      margin-bottom: 20px;
-      color: #555;
-    }
-    input {
-      padding: 10px;
-      margin: 5px;
-      font-size: 1em;
-      width: 180px;
-    }
-    button {
-      padding: 12px 20px;
-      margin-top: 10px;
-      font-size: 1em;
-      background-color: #2ecc71;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #27ae60;
-    }
-    .affiliate {
-      margin-top: 30px;
-      padding: 15px;
-      background-color: orange;
-      font-weight: bold;
-      font-size: 1.1em;
-      color: white;
-      border-radius: 6px;
-      display: inline-block;
-    }
-    #result {
-      margin-top: 25px;
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #666;
-    }
-  </style>
+    <title>How Long to Be Elon Musk? 💸</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .counter {
+            font-size: 40px;
+            color: #c0392b;
+            margin: 10px 0;
+        }
+
+        .spinning-digit {
+            display: inline-block;
+            width: 0.6em;
+            text-align: center;
+            color: #c0392b;
+        }
+
+        .calculator {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        #result {
+            font-size: 20px;
+            color: #000000;
+            margin: 20px;
+            display: none;
+        }
+
+        #affiliateLink {
+            display: inline-block;
+            background: orange;
+            color: white;
+            padding: 14px 24px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 25px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .footer-links a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .update-date {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #444;
+        }
+    </style>
 </head>
 <body>
+    <div class="calculator">
+        <h1>⏳ How Long to Be Elon Musk? 💸</h1>
 
-  <h1>⏳ How Long to Be Elon Musk? 💵</h1>
-  <div id="net-worth">$Loading...</div>
-  <div id="updated"></div>
+        <div class="counter">
+            $342,
+            <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
+            <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>,
+            <span class="spinning-digit">0</span><span class="spinning-digit">0</span><span class="spinning-digit">0</span>
+        </div>
 
-  <input type="number" id="hourly" placeholder="Your hourly wage">
-  <input type="number" id="hours" placeholder="Hours/week">
-  <div>— or —</div>
-  <input type="number" id="salary" placeholder="Your yearly salary">
-  <br>
-  <button onclick="calculate()">Reveal Your Timeline ⚡</button>
+        <div class="update-date">
+            Updated May 03, 2025 — (<span style="color:red;">⬇ $3B</span>)
+        </div>
 
-  <div id="result"></div>
+        <div class="input-group">
+            <input type="number" id="hourlyIncome" placeholder="Your hourly wage">
+            <input type="number" id="hoursPerWeek" placeholder="Hours/week">
+        </div>
 
-  <br><br>
-  <a class="affiliate" href="go.html">🚀 Learn how to make money like Elon!</a>
+        <div style="margin: 10px;">— or —</div>
 
-  <footer>
-    <br><br>
-    <a href="#">Privacy Policy</a> |
-    <a href="#">Disclaimer</a> |
-    <a href="#">Earnings Disclosure</a>
-    <br>
-    <p>*Some links on this site may be affiliate links.</p>
-  </footer>
+        <input type="number" id="yearlyIncome" placeholder="Your yearly salary">
 
-  <script>
-    const billions = 342;
-    let trailingDigits = Math.floor(Math.random() * 1_000_000_000);
-    let direction = Math.random() < 0.5 ? -1 : 1;
-    const changeRate = 250;
+        <div>
+            <button onclick="calculate()">Reveal Your Timeline ⚡</button>
+        </div>
 
-    function formatNumber(number) {
-      return number.toLocaleString("en-US");
-    }
+        <div id="result"></div>
 
-    function updateNetWorth() {
-      trailingDigits += Math.floor(Math.random() * 100000 * direction);
+        <a id="affiliateLink" href="https://bit.ly/3v3nNHU" target="_blank">
+            🚀 Learn how to make money like Elon!
+        </a>
 
-      if (trailingDigits < 0) {
-        trailingDigits = 0;
-        direction = 1;
-      } else if (trailingDigits >= 1_000_000_000) {
-        trailingDigits = 999_999_999;
-        direction = -1;
-      }
+        <div class="footer">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a> |
+                <a href="disclaimer.html">Disclaimer</a> |
+                <a href="earnings-disclosure.html">Earnings Disclosure</a>
+            </div>
+            <p>*Some links on this site may be affiliate links. We may earn commissions from qualifying purchases.</p>
+            <p>This is a parody tool and not affiliated with Elon Musk.</p>
+        </div>
+    </div>
 
-      const fullWorth = billions * 1_000_000_000 + trailingDigits;
-      document.getElementById("net-worth").textContent = "$" + formatNumber(fullWorth);
-    }
+    <script>
+        // Randomize digits with original pace
+        document.addEventListener('DOMContentLoaded', function() {
+            const digits = document.querySelectorAll('.spinning-digit');
+            const speeds = [1000, 800, 600, 500, 400, 300, 250, 200, 150];
 
-    setInterval(updateNetWorth, changeRate);
+            digits.forEach((digit, index) => {
+                let max = 9;
+                if (index === 0) max = 8;
 
-    function calculate() {
-      const hourly = parseFloat(document.getElementById("hourly").value);
-      const hours = parseFloat(document.getElementById("hours").value);
-      const salary = parseFloat(document.getElementById("salary").value);
-      let yearlyIncome;
+                function update() {
+                    digit.textContent = Math.floor(Math.random() * (max + 1));
+                    setTimeout(update, speeds[index]);
+                }
+                update();
+            });
+        });
 
-      if (!isNaN(salary)) {
-        yearlyIncome = salary;
-      } else if (!isNaN(hourly) && !isNaN(hours)) {
-        yearlyIncome = hourly * hours * 52;
-      } else {
-        document.getElementById("result").textContent = "Please enter either a salary or hourly wage and hours.";
-        return;
-      }
+        const netWorth = 342000000000;
 
-      const netWorth = billions * 1_000_000_000 + trailingDigits;
-      const years = netWorth / yearlyIncome;
-      const yearsRounded = Math.floor(years);
-      const months = Math.floor((years - yearsRounded) * 12);
+        function calculate() {
+            const hourly = parseFloat(document.getElementById('hourlyIncome').value);
+            const hours = parseFloat(document.getElementById('hoursPerWeek').value);
+            const salary = parseFloat(document.getElementById('yearlyIncome').value);
 
-      document.getElementById("result").textContent =
-        `At your current income, it would take you approximately ${yearsRounded.toLocaleString()} years and ${months} months to reach Elon Musk's net worth.`;
-    }
+            let income;
+            if (!isNaN(salary)) {
+                income = salary;
+            } else if (!isNaN(hourly) && !isNaN(hours)) {
+                income = hourly * hours * 52;
+            } else {
+                alert("Please enter either a salary or hourly wage and hours.");
+                return;
+            }
 
-    // Display updated date and change direction
-    const updateText = document.getElementById("updated");
-    const isUp = direction > 0;
-    const arrow = isUp ? "🟢 ↑" : "🔴 ↓";
-    updateText.innerHTML = `Updated May 03, 2025 — (${arrow} $3B)`;
-  </script>
+            const years = netWorth / income;
+            const wholeYears = Math.floor(years);
+            const months = Math.floor((years - wholeYears) * 12);
+
+            document.getElementById('result').innerHTML =
+                `At your current income, it would take you approximately <strong>${wholeYears.toLocaleString()} years and ${months} months</strong> to reach Elon Musk's net worth.`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
