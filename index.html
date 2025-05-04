@@ -3,102 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <title>How Long to Be Elon Musk?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #fefefe; color: #333; text-align: center; padding: 40px; }
-    h1 { font-size: 2.5rem; margin-bottom: 10px; }
-    .networth { font-size: 2.8rem; font-weight: bold; color: #c0392b; margin: 0; }
-    .updated { margin-top: 10px; font-size: 1rem; color: #666; }
-    .calculator { margin-top: 30px; }
-    input, select, button {
-      padding: 12px;
-      font-size: 1.1rem;
-      margin: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      margin: 0;
+      padding-top: 60px;
     }
-    .cta {
-      margin-top: 40px;
-      padding: 15px 30px;
-      background-color: orange;
-      border: none;
-      border-radius: 6px;
-      color: white;
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .networth {
+      font-size: 3rem;
       font-weight: bold;
-      font-size: 1.1rem;
-      cursor: pointer;
+      color: #c0392b;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
     }
-    .footer {
-      margin-top: 50px;
-      font-size: 0.9rem;
-      color: #777;
-    }
-    .footer a {
-      color: #007BFF;
-      text-decoration: none;
-      margin: 0 8px;
+    .date {
+      color: #555;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
+
   <h1>⏳ How Long to Be Elon Musk? 💵</h1>
-  <div class="networth" id="netWorth">$342,000,000,000</div>
-  <div class="updated">Updated May 03, 2025 — (<span style="color:red;">↓ $3B</span>)</div>
 
-  <div class="calculator">
-    <input type="number" id="hourlyWage" placeholder="Your hourly wage">
-    <input type="number" id="hoursPerWeek" placeholder="Hours/week">
-    <p>— or —</p>
-    <input type="number" id="yearlySalary" placeholder="Your yearly salary">
-    <br>
-    <button onclick="calculate()">Reveal Your Timeline ⚡</button>
-  </div>
+  <div class="networth" id="networth">$342,901,833,928</div>
 
-  <div id="result" style="margin-top:30px; font-size:1.2rem;"></div>
-
-  <button class="cta" onclick="window.open('https://your-affiliate-link.com', '_blank')">🚀 Learn how to make money like Elon!</button>
-
-  <div class="footer">
-    <a href="#">Privacy Policy</a> |
-    <a href="#">Disclaimer</a> |
-    <a href="#">Earnings Disclosure</a>
-    <p style="margin-top:10px;">*Some links on this site may be affiliate links. We may earn commissions from qualifying purchases.</p>
-  </div>
+  <div class="date">Updated May 03, 2025 — (↓ $3B)</div>
 
   <script>
-    // Restore original randomization effect
-    const netWorthElement = document.getElementById("netWorth");
-    let baseValue = 342000000000;
+    // Original-style randomized number updater (only last 9 digits spin)
+    const baseNetWorth = 342000000000;
+    const digitsToSpin = 9;
+    const speed = 40;
 
     function formatNumber(num) {
       return num.toLocaleString("en-US");
     }
 
-    function animateNetWorth() {
-      let offset = Math.floor(Math.random() * 1000000 - 500000);
-      let displayedValue = baseValue + offset;
-      netWorthElement.textContent = "$" + formatNumber(displayedValue);
+    function randomizeDigits(fixedPart) {
+      let randomPart = Math.floor(Math.random() * Math.pow(10, digitsToSpin));
+      let total = fixedPart + randomPart;
+      return formatNumber(total);
     }
 
-    setInterval(animateNetWorth, 300);
-
-    function calculate() {
-      let hourly = parseFloat(document.getElementById("hourlyWage").value);
-      let hours = parseFloat(document.getElementById("hoursPerWeek").value);
-      let yearly = parseFloat(document.getElementById("yearlySalary").value);
-      let salary = isNaN(yearly) ? hourly * hours * 52 : yearly;
-
-      if (isNaN(salary) || salary <= 0) {
-        document.getElementById("result").innerText = "Please enter valid income data.";
-        return;
-      }
-
-      let years = Math.floor(baseValue / salary);
-      let months = Math.round(((baseValue / salary) % 1) * 12);
-
-      document.getElementById("result").innerText =
-        `At your current income, it would take you approximately ${years.toLocaleString()} years and ${months} months to reach Elon Musk's net worth.`;
+    function updateDisplay() {
+      const fixed = Math.floor(baseNetWorth / Math.pow(10, digitsToSpin)) * Math.pow(10, digitsToSpin);
+      document.getElementById("networth").textContent = `$${randomizeDigits(fixed)}`;
     }
+
+    setInterval(updateDisplay, speed);
   </script>
+
 </body>
 </html>
