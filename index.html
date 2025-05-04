@@ -1,63 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>How Long to Be Elon Musk?</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elon Musk Net Worth Tracker</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f9f9;
-      text-align: center;
-      margin: 0;
-      padding-top: 60px;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: #f9f9f9;
+      color: #333;
     }
+
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+      font-size: 28px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 5px;
     }
-    .networth {
-      font-size: 3rem;
+
+    #netWorthDisplay {
+      font-size: 42px;
       font-weight: bold;
       color: #c0392b;
-      margin-bottom: 10px;
-      letter-spacing: 2px;
+      margin: 10px 0;
     }
-    .date {
-      color: #555;
-      font-size: 1rem;
+
+    #updateInfo {
+      font-size: 14px;
+      color: #666;
     }
+
+    .green { color: green; }
+    .red { color: red; }
+    .gray { color: gray; }
   </style>
 </head>
 <body>
 
-  <h1>⏳ How Long to Be Elon Musk? 💵</h1>
+  <h1>⏳ How Long to Be Elon Musk? <span>💵</span></h1>
 
-  <div class="networth" id="networth">$342,901,833,928</div>
+  <div id="netWorthDisplay">$<span id="billionPart">406</span>,<span id="spinPart">194,250,975</span></div>
 
-  <div class="date">Updated May 03, 2025 — (↓ $3B)</div>
+  <div id="updateInfo">Updated May 03, 2025 – <span id="changeIndicator" class="red">(↓ $3B)</span></div>
 
   <script>
-    // Original-style randomized number updater (only last 9 digits spin)
-    const baseNetWorth = 342000000000;
-    const digitsToSpin = 9;
-    const speed = 40;
+    // Replace these with your dynamic values from Google Sheets
+    const netWorthBillion = 342; // ← fetched from Google Sheets
+    const netWorthChange = -3;   // ← fetched from Google Sheets (negative for down)
+    const lastUpdatedDate = 'May 03, 2025';
 
-    function formatNumber(num) {
-      return num.toLocaleString("en-US");
+    // Set main digits
+    document.getElementById("billionPart").innerText = netWorthBillion;
+
+    // Animate spinning digits
+    let current = Math.floor(Math.random() * 1_000_000_000);
+    const spinEl = document.getElementById("spinPart");
+
+    function formatDigits(num) {
+      return num.toLocaleString("en-US").padStart(9, '0');
     }
 
-    function randomizeDigits(fixedPart) {
-      let randomPart = Math.floor(Math.random() * Math.pow(10, digitsToSpin));
-      let total = fixedPart + randomPart;
-      return formatNumber(total);
+    function spinDigits() {
+      current += Math.floor(Math.random() * 100000); // Adjust for spin speed
+      if (current >= 999_999_999) current = 0;
+      spinEl.textContent = formatDigits(current);
     }
 
-    function updateDisplay() {
-      const fixed = Math.floor(baseNetWorth / Math.pow(10, digitsToSpin)) * Math.pow(10, digitsToSpin);
-      document.getElementById("networth").textContent = `$${randomizeDigits(fixed)}`;
+    setInterval(spinDigits, 120); // Speed of animation
+
+    // Format change indicator
+    const changeEl = document.getElementById("changeIndicator");
+    if (netWorthChange > 0) {
+      changeEl.className = 'green';
+      changeEl.innerHTML = `(↑ $${Math.abs(netWorthChange)}B)`;
+    } else if (netWorthChange < 0) {
+      changeEl.className = 'red';
+      changeEl.innerHTML = `(↓ $${Math.abs(netWorthChange)}B)`;
+    } else {
+      changeEl.className = 'gray';
+      changeEl.textContent = `(No Change)`;
     }
 
-    setInterval(updateDisplay, speed);
+    // Set update timestamp
+    document.getElementById("updateInfo").innerHTML =
+      `Updated ${lastUpdatedDate} – <span class="${changeEl.className}">${changeEl.innerHTML}</span>`;
   </script>
 
 </body>
